@@ -476,8 +476,8 @@ class AnkiConnect:
 
                 def waiter():
                     # This function waits until main window is closed
-                    # It's needed cause sync can take quite some time
-                    # And if we call loadProfile until sync is ended things will go wrong
+                    # It's needed cause  can take quite some time
+                    # And if we call loadProfile until  is ended things will go wrong
                     if self.window().isVisible():
                         QTimer.singleShot(1000, waiter)
                     else:
@@ -508,8 +508,16 @@ class AnkiConnect:
             except Exception as e:
                 import traceback
                 traceback.print_exc()
-        sync_thread= threading.Thread(target=sync_task)
-        sync_thread.start()
+        try:
+            sync_task()
+        except Exception as e:
+            try:
+                sync_thread= threading.Thread(target=sync_task)
+                sync_thread.start()
+            except Exception as e:
+                import traceback
+                traceback.print_exc()
+
 
 
     @util.api()
