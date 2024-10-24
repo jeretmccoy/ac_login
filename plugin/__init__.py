@@ -494,15 +494,23 @@ class AnkiConnect:
 
     @util.api()
     def sync(self):
-        mw = self.window()
-        auth = mw.pm.sync_auth()
-        if not auth:
-            raise Exception("sync: auth not configured")
-        out = mw.col.sync_collection(auth, mw.pm.media_syncing_enabled())
-        accepted_sync_statuses = [out.NO_CHANGES, out.NORMAL_SYNC]
-        if out.required not in accepted_sync_statuses:
-            raise Exception(f"Sync status {out.required} not one of {accepted_sync_statuses} - see SyncCollectionResponse.ChangesRequired for list of sync statuses: https://github.com/ankitects/anki/blob/e41c4573d789afe8b020fab5d9d1eede50c3fa3d/proto/anki/sync.proto#L57-L65")
-        mw.onSync()
+        def sync_task():
+            try:
+                mw = self.window()
+                auth = mw.pm.sync_auth()
+                if not auth:
+                    raise Exception("sync: auth not configured")
+                out = mw.col.sync_collection(auth, mw.pm.media_syncing_enabled())
+                accepted_sync_statuses = [out.NO_CHANGES, out.NORMAL_SYNC]
+                if out.required not in accepted_sync_statuses:
+                    raise Exception(f"Sync status {out.required} not one of {accepted_sync_statuses} - see SyncCollectionResponse.ChangesRequired for list of sync statuses: https://github.com/ankitects/anki/blob/e41c4573d789afe8b020fab5d9d1eede50c3fa3d/proto/anki/sync.proto#L57-L65")
+                mw.onSync()
+            except Exception as e:
+                import traceback
+                traceback.print_exc()
+        sync_thread= threading.Thread(target=sync_task)
+        sync_thread.start()
+
 
     @util.api()
     def login(self, u, p):
