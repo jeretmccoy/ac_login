@@ -17,6 +17,7 @@ import aqt
 import threading
 import re
 
+
 anki_version = tuple(int(segment) for segment in aqt.appVersion.split("."))
 
 if anki_version < (2, 1, 45):
