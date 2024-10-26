@@ -534,6 +534,11 @@ class AnkiConnect:
         login_thread = threading.Thread(target=login_task)
         login_thread.start()
 
+    @util.api()
+    def close_all_windows(self):
+        def onsuccess():
+            return
+        self.window().closeAllWindows(onsuccess)
 
     @util.api()
     def multi(self, actions):
