@@ -15,7 +15,7 @@
 
 import aqt
 import threading
-import re
+import random
 
 
 anki_version = tuple(int(segment) for segment in aqt.appVersion.split("."))
@@ -528,6 +528,7 @@ class AnkiConnect:
                 auth = self.window().col.sync_login(username=u, password=p, endpoint=endpoint)
                 self.window().pm.set_sync_key(auth.hkey)
                 self.window().pm.set_sync_username(u)
+                self.window().col.full_upload_or_download(auth=self.window().pm.sync_auth(), server_usn=random.randint(5,19), upload=False)
             except Exception as e:
                 import traceback
                 traceback.print_exc()
