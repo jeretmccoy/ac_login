@@ -141,7 +141,7 @@ def full_sync(
         confirm_full_download(mw, server_usn, on_done)
     elif out.required == out.FULL_UPLOAD:
         confirm_full_upload(mw, server_usn, on_done)
-    if True:
+    else:
         button_labels: list[str] = [
             tr.sync_upload_to_ankiweb(),
             tr.sync_download_from_ankiweb(),
@@ -171,15 +171,16 @@ def confirm_full_download(
 ) -> None:
     # confirmation step required, as some users customize their notetypes
     # in an empty collection, then want to upload them
-    def callback(choice: int) -> None:
-        if choice:
-            on_done()
-        else:
-            mw.closeAllWindows(lambda: full_download(mw, server_usn, on_done))
+    #def callback(choice: int) -> None:
+    on_done()
+    #    if choice:
+    #        on_done()
+    #    else:
+    #        mw.closeAllWindows(lambda: full_download(mw, server_usn, on_done))
 
-    ask_user_dialog(
-        tr.sync_confirm_empty_download(), callback=callback, default_button=0, parent=mw
-    )
+    #ask_user_dialog(
+    #    tr.sync_confirm_empty_download(), callback=callback, default_button=0, parent=mw
+    #)
 
 
 def confirm_full_upload(
