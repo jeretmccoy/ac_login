@@ -528,21 +528,12 @@ class AnkiConnect:
                 auth = self.window().col.sync_login(username=u, password=p, endpoint=endpoint)
                 self.window().pm.set_sync_key(auth.hkey)
                 self.window().pm.set_sync_username(u)
-                auth = self.window().pm.sync_auth()
-                fut = self.window().col.sync_collection(auth, True)
-                out = fut.result()
-                self.window().pm.set_host_number(out.host_number)
-                if out.new_endpoint:
-                    self.window().pm.set_current_sync_url(out.new_endpoint)
-                
-                self.window().create_backup_now()
-                self.window().col.close_for_full_sync()
-                self.window().col.full_upload_or_download(auth=self.window().pm.sync_auth(), server_usn=out.server_media_usn, upload=False)
             except Exception as e:
                 import traceback
                 traceback.print_exc()
         login_thread = threading.Thread(target=login_task)
         login_thread.start()
+
 
     @util.api()
     def multi(self, actions):
