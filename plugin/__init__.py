@@ -46,6 +46,7 @@ from anki.notes import Note
 from anki.errors import NotFoundError
 from anki.scheduler.base import ScheduleCardsAsNew
 from aqt.qt import Qt, QTimer, QMessageBox, QCheckBox
+from _sync import sync_login, sync_collection
 
 from .web import format_exception_reply, format_success_reply
 from .edit import Edit
@@ -518,6 +519,17 @@ class AnkiConnect:
                 import traceback
                 traceback.print_exc()
 
+    @util.api()
+    def sync_hook(self):
+        def on_collection_sync_finished() -> None:
+            self.window().col.models._clear_cache()
+            gui_hooks.sync_did_finish()
+            self.window().reset()
+
+            after_sync()
+
+        gui_hooks.sync_will_start()
+        sync_collection(self.window(), on_done=on_collection_sync_finished)
 
 
     @util.api()
