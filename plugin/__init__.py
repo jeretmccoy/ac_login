@@ -46,7 +46,7 @@ from anki.notes import Note
 from anki.errors import NotFoundError
 from anki.scheduler.base import ScheduleCardsAsNew
 from aqt.qt import Qt, QTimer, QMessageBox, QCheckBox
-from _sync import sync_login, sync_collection
+from mysync import sync_login, sync_collection
 
 from .web import format_exception_reply, format_success_reply
 from .edit import Edit
