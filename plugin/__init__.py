@@ -530,7 +530,7 @@ class AnkiConnect:
 
         #gui_hooks.sync_will_start()
         auth = self.window().pm.sync_auth()
-        sync_collection(self.window(), on_done=on_collection_sync_finished)
+        sync_collection(self.window(),auth,  on_done=on_collection_sync_finished)
 
 
     @util.api()
