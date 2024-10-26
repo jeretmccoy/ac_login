@@ -529,6 +529,7 @@ class AnkiConnect:
             self.window()._refresh_after_sync()
 
         #gui_hooks.sync_will_start()
+        auth = self.window().pm.sync_auth()
         sync_collection(self.window(), on_done=on_collection_sync_finished)
 
 
