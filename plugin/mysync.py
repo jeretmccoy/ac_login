@@ -137,11 +137,11 @@ def full_sync(
     mw: aqt.main.AnkiQt, out: SyncOutput, on_done: Callable[[], None]
 ) -> None:
     server_usn = out.server_media_usn if mw.pm.media_syncing_enabled() else None
-    if out.required == out.FULL_DOWNLOAD:
-        confirm_full_download(mw, server_usn, on_done)
-    elif out.required == out.FULL_UPLOAD:
-        confirm_full_upload(mw, server_usn, on_done)
-    else:
+    #if out.required == out.FULL_DOWNLOAD:
+    #    confirm_full_download(mw, server_usn, on_done)
+    #elif out.required == out.FULL_UPLOAD:
+    #    confirm_full_upload(mw, server_usn, on_done)
+    if True:
         button_labels: list[str] = [
             tr.sync_upload_to_ankiweb(),
             tr.sync_download_from_ankiweb(),
