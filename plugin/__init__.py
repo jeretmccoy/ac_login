@@ -523,12 +523,12 @@ class AnkiConnect:
     def sync_hook(self):
         def on_collection_sync_finished() -> None:
             self.window().col.models._clear_cache()
-            gui_hooks.sync_did_finish()
+            #gui_hooks.sync_did_finish()
             self.window().reset()
 
-            after_sync()
+            self.window()._refresh_after_sync()
 
-        gui_hooks.sync_will_start()
+        #gui_hooks.sync_will_start()
         sync_collection(self.window(), on_done=on_collection_sync_finished)
 
 
