@@ -172,7 +172,7 @@ def confirm_full_download(
     # confirmation step required, as some users customize their notetypes
     # in an empty collection, then want to upload them
     #def callback(choice: int) -> None:
-    on_done()
+    mw.closeAllWindows(lambda: full_download(mw, server_usn, on_done))
     #    if choice:
     #        on_done()
     #    else:
@@ -189,7 +189,7 @@ def confirm_full_upload(
     # confirmation step required, as some users have reported an upload
     # happening despite having their AnkiWeb collection not being empty
     # (not reproducible - maybe a compiler bug?)
-    on_done()
+    mw.closeAllWindows(lambda: full_upload(mw, server_usn, on_done))
     #def callback(choice: int) -> None:
     #    if choice:
     #        on_done()
